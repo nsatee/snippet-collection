@@ -1,1 +1,1 @@
-## The ui components project
+## Snippet collection app
