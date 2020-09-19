@@ -28,25 +28,16 @@ type GridProps = {
   col?: total;
   row?: total;
   center?: boolean;
-  fullH?: boolean;
-  fullW?: boolean;
 };
 
 const Grid = styled.div<GridProps>`
-  ${({ gap, col, row, center, fullH, fullW }) => css`
+  ${({ gap, col, row, center }) => css`
     display: grid;
     grid-gap: ${gap && gapSet[gap]}px;
     grid-template-columns: repeat(${col && col}, 1fr);
     grid-template-row: repeat(${row && row}, 1fr);
     place-items: ${center && "center"};
-    width: ${fullW && "100vw"};
-    height: ${fullH && "100vh"};
   `}
-`;
-
-export const MainContainer = styled.div`
-  width: 100vw;
-  min-height: 100vh;
 `;
 
 export default Grid;

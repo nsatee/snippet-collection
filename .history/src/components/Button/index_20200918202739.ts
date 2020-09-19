@@ -33,39 +33,39 @@ const Button = styled.button<ButtonType>`
       font-size: ${ButtonSize[dimension] + 4}px;
       border: 3px solid
         ${(["bordered", "solid"] as typeof display[]).includes(display)
-          ? theme.colors[color].base
+          ? theme[color].base
           : "transparent"};
-      color: ${theme.colors[color].dark};
+      color: ${theme[color].dark};
       font-weight: bold;
       cursor: ${!disabled && "pointer"};
       border-radius: 12px;
       box-shadow: ${display === "solid" &&
-      `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+      `0 5px 20px ${rgba(theme[color].base, 0.9)}`};
       transition: 0.1s;
       opacity: ${disabled && 0.4};
 
       ${active &&
       css`
         background-color: ${display === "solid"
-          ? theme.colors[color].light
-          : theme.colors[color].base};
+          ? theme[color].light
+          : theme[color].base};
         box-shadow: ${display === "ghost" &&
-        `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+        `0 5px 20px ${rgba(theme[color].base, 0.9)}`};
       `}
 
       ${!disabled &&
       css`
         &:hover {
           background-color: ${display === "solid"
-            ? theme.colors[color].light
-            : theme.colors[color].base};
+            ? theme[color].light
+            : theme[color].base};
           box-shadow: ${display === "ghost" &&
-          `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+          `0 5px 20px ${rgba(theme[color].base, 0.9)}`};
         }
 
         &:active {
           background-color: ${display === "solid"
-            ? theme.colors[color].base
+            ? theme[color].base
             : "transparent"};
         }
       `}

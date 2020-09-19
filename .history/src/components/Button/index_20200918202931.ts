@@ -33,7 +33,7 @@ const Button = styled.button<ButtonType>`
       font-size: ${ButtonSize[dimension] + 4}px;
       border: 3px solid
         ${(["bordered", "solid"] as typeof display[]).includes(display)
-          ? theme.colors[color].base
+          ? theme.colors.[color].base
           : "transparent"};
       color: ${theme.colors[color].dark};
       font-weight: bold;

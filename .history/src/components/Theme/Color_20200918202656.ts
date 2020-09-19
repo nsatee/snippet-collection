@@ -51,7 +51,7 @@ export const theme = {
 type Theme = typeof theme;
 export type ColorsType = keyof typeof theme.colors;
 export type SpacingType = keyof typeof theme.spacing;
-export type ThemeType = keyof typeof theme;
+export type Theme = ColorsType & SpacingType;
 
 declare module "styled-components" {
   export interface DefaultTheme extends Theme {}
