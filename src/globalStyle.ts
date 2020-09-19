@@ -4,7 +4,7 @@ export const GlobalStyled = createGlobalStyle`
 ${({ theme }) => css`
   * {
     box-sizing: border-box;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.11em;
     -webkit-font-smoothing: antialiased;
   }
   body {

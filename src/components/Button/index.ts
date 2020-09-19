@@ -1,20 +1,16 @@
 import styled, { css } from "styled-components";
 import { ColorsType } from "../Theme/Color";
 import rgba from "hex-to-rgba";
+import chroma from "chroma-js";
 
 type ButtonType = {
   dimension?: "s" | "m" | "l";
   color?: ColorsType;
-  display?: "bordered" | "solid" | "ghost";
+  display?: "bordered" | "solid" | "ghost" | "plain";
   disabled?: boolean;
   active?: boolean;
+  expanded?: boolean;
 } & React.HTMLProps<HTMLButtonElement>;
-
-enum ButtonSize {
-  s = 8,
-  m = 12,
-  l = 16,
-}
 
 const Button = styled.button<ButtonType>`
   ${({
@@ -24,49 +20,49 @@ const Button = styled.button<ButtonType>`
     display = "solid",
     disabled,
     active,
+    expanded,
   }) =>
     css`
-      padding: ${ButtonSize[dimension]}px ${ButtonSize[dimension] * 2}px;
+      outline: 0;
+      padding: ${theme.spacing[dimension] * 1.5}px
+        ${theme.spacing[dimension] * 2}px;
       background-color: ${display === "solid"
         ? theme.colors[color].base
         : "transparent"};
-      font-size: ${ButtonSize[dimension] + 4}px;
-      border: 3px solid
-        ${(["bordered", "solid"] as typeof display[]).includes(display)
-          ? theme.colors[color].base
-          : "transparent"};
-      color: ${theme.colors[color].dark};
+      font-size: ${theme.spacing.l}px;
+      border: 0;
+      color: ${chroma(theme.colors[color].base).brighten(2).css()};
       font-weight: bold;
       cursor: ${!disabled && "pointer"};
-      border-radius: 12px;
       box-shadow: ${display === "solid" &&
-      `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+      `0 5px 20px ${rgba(theme.colors[color].base, 0.6)}`};
       transition: 0.1s;
       opacity: ${disabled && 0.4};
+      width: ${expanded && "100%"};
 
       ${active &&
       css`
-        background-color: ${display === "solid"
-          ? theme.colors[color].light
-          : theme.colors[color].base};
+        background-color: ${theme.colors[color].light};
         box-shadow: ${display === "ghost" &&
         `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+      `}
+
+      ${display === "plain" &&
+      css`
+        background: transparent !important;
+        padding: 0;
+        color: ${theme.colors[color].base};
       `}
 
       ${!disabled &&
       css`
         &:hover {
+          color: ${chroma(theme.colors[color].base).darken(1).css()};
           background-color: ${display === "solid"
             ? theme.colors[color].light
             : theme.colors[color].base};
           box-shadow: ${display === "ghost" &&
           `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
-        }
-
-        &:active {
-          background-color: ${display === "solid"
-            ? theme.colors[color].base
-            : "transparent"};
         }
       `}
     `}

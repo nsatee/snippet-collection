@@ -44,9 +44,44 @@ const Grid = styled.div<GridProps>`
   `}
 `;
 
-export const MainContainer = styled.div`
-  width: 100vw;
-  min-height: 100vh;
+const styleVal = {
+  center: "center",
+  start: "flex-start",
+  end: "flex-end",
+};
+
+type FlexProps = {
+  justify?: keyof typeof styleVal;
+  align?: keyof typeof styleVal;
+  gap?: keyof typeof gapSet;
+};
+
+export const Flex = styled.div<FlexProps>`
+  ${({ justify, align, gap }) => css`
+    display: flex;
+    justify-content: ${justify && styleVal[justify]};
+    align-items: ${align && styleVal[align]};
+
+    > * {
+      margin: 0 ${gap && gapSet[gap]}px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  `}
+`;
+
+export const MainContainer = styled.div<{ direction?: "row" | "column" }>`
+  ${({ direction = "column" }) => css`
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: ${direction};
+  `}
 `;
 
 export default Grid;

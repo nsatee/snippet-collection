@@ -1,3 +1,5 @@
+import chroma from "chroma-js";
+
 export const theme = {
   colors: {
     foreground: {
@@ -11,19 +13,19 @@ export const theme = {
       dark: "#e4e8f0",
     },
     primary: {
-      light: "#e3f3ff",
-      base: "#ccdbff",
-      dark: "#5770ad",
+      light: chroma("#4582CE").brighten(1).css(),
+      base: "#4582CE",
+      dark: chroma("#4582CE").darken(2).css(),
     },
     secondary: {
-      light: "#edf7ff",
-      base: "#d3e3f0",
-      dark: "#599ac9",
+      light: chroma("#4582CE").brighten(0.2).css(),
+      base: "#4582CE",
+      dark: chroma("#4582CE").darken(2).css(),
     },
     error: {
-      light: "#f8e5ee",
-      base: "#fdbabe",
-      dark: "#ec4b52",
+      light: chroma("#F55D51").brighten(0.2).css(),
+      base: "#F55D51",
+      dark: chroma("#F55D51").darken(2).css(),
     },
     success: {
       light: "#d8f3dc",
