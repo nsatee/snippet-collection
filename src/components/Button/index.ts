@@ -39,6 +39,8 @@ const Button = styled.button<ButtonType>`
       transition: 0.1s;
       opacity: ${disabled && 0.4};
       width: ${expanded && "100%"};
+      border-radius: 8px;
+      overflow: hidden;
 
       ${active &&
       css`

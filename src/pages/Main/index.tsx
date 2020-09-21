@@ -6,19 +6,30 @@ import { Flex, MainContainer } from "../../components/Grid";
 import Modal, { ModalFooter } from "../../components/Modal";
 
 const Main = () => {
+  const [creatingSection, setCreatingSection] = React.useState(false);
   return (
     <MainContainer direction="row">
       <Side>
-        <Button expanded>Create section</Button>
+        <Button expanded onClick={() => setCreatingSection(true)}>
+          Create section
+        </Button>
       </Side>
       <Content>content</Content>
-      <Modal title="Create section">
+      <Modal
+        title="Create section"
+        active={creatingSection}
+        onClose={() => setCreatingSection(false)}
+      >
         <Field>
           <Input autoFocus />
         </Field>
         <ModalFooter>
           <Flex justify="end" align="center" gap="m">
-            <Button display="plain" color="error">
+            <Button
+              display="plain"
+              color="error"
+              onClick={() => setCreatingSection(false)}
+            >
               Cancel
             </Button>
             <Button dimension="s">Create</Button>
@@ -37,7 +48,7 @@ export const Side = styled.aside`
     overflow: scroll;
     position: sticky;
     top: 0;
-    padding-right: ${theme.spacing.xxl}px;
+    padding: ${theme.spacing.xxl}px;
   `}
 `;
 

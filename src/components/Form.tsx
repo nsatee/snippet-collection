@@ -43,6 +43,7 @@ export const Input = styled.input`
     border-color: ${theme.colors.background.light};
     outline: 0;
     transition: 0.1s;
+    border-radius: 8px;
 
     &:focus {
       border-color: ${theme.colors.background.dark};

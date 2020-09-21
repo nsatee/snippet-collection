@@ -1,18 +1,33 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Modal: React.FC<{ title?: string; active?: boolean }> = ({
-  title,
-  active,
-  children,
-}) => {
+const Modal: React.FC<{
+  title?: string;
+  active?: boolean;
+  onClose: () => void;
+}> = ({ title, active, children, onClose }) => {
   return (
-    <Container>
-      <Overlay />
-      <Box>
-        {title && <Title>{title}</Title>}
-        <Body>{children}</Body>
-      </Box>
+    <Container active={active}>
+      <AnimatePresence>
+        {active && (
+          <Overlay
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {active && (
+          <Box initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }}>
+            {title && <Title>{title}</Title>}
+            <Body>{children}</Body>
+          </Box>
+        )}
+      </AnimatePresence>
     </Container>
   );
 };
@@ -36,22 +51,37 @@ const Title = styled.h2`
   `}
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ active?: boolean }>`
+  ${({ active }) => css`
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    opacity: 1;
+    transition: 0.2s;
+
+    ${!active &&
+    css`
+      opacity: 0;
+      cursor: default;
+      pointer-events: none;
+    `}
+  `}
+`;
+
+const Overlay = styled(motion.div)`
   width: 100vw;
   height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-`;
-
-const Overlay = styled(Container)`
+  display: block;
   position: absolute;
   background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   ${({ theme }) => css`
     background: white;
     position: relative;
@@ -61,6 +91,8 @@ const Box = styled.div`
       0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
       0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
   `}
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 export default Modal;
