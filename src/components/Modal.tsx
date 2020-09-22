@@ -52,7 +52,7 @@ const Title = styled.h2`
 `;
 
 const Container = styled.div<{ active?: boolean }>`
-  ${({ active }) => css`
+  ${({ active, theme }) => css`
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -62,6 +62,7 @@ const Container = styled.div<{ active?: boolean }>`
     place-items: center;
     opacity: 1;
     transition: 0.2s;
+    padding: ${theme.spacing.l}px;
 
     ${!active &&
     css`
@@ -86,7 +87,7 @@ const Box = styled(motion.div)`
     background: white;
     position: relative;
     max-width: 500px;
-    width: 100vw;
+    width: 100%;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
       0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
       0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);

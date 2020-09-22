@@ -47,6 +47,7 @@ const Button = styled.button<ButtonType>`
         background-color: ${theme.colors[color].light};
         box-shadow: ${display === "ghost" &&
         `0 5px 20px ${rgba(theme.colors[color].base, 0.9)}`};
+        color: ${chroma(theme.colors[color].base).darken(1).css()};
       `}
 
       ${display === "plain" &&
