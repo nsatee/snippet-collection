@@ -77,7 +77,7 @@ const Text = {
   p: styled.p`
     ${Body}
   `,
-  span: styled.small`
+  small: styled.small`
     ${Small}
   `,
   label: styled.span`

@@ -47,11 +47,27 @@ const plainButton = css<ButtonProps>`
   `}
 `;
 
+const ghostButton = css<ButtonProps>`
+  ${({ theme, color = "primary" }) => css`
+    ${plainButton}
+    background-color: transparent;
+    border-color: ${theme.colors[color]};
+
+    &:hover {
+      color: ${textColor(theme.colors[color])};
+      background: ${theme.colors[color]};
+      border-color: ${theme.colors[color]};
+    }
+  `}
+`;
+
 export const ButtonEl = styled.button<ButtonProps>`
   ${({ variant }) => {
     switch (variant) {
       case "plain":
         return plainButton;
+      case "ghost":
+        return ghostButton;
       default:
         return solidButton;
     }
