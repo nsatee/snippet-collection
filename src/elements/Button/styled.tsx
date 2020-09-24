@@ -16,19 +16,33 @@ export type ButtonProps = {
 const solidButton = css<ButtonProps>`
   ${({ theme, color = "primary", size = "m", full }) => css`
     background: ${theme.colors[color]};
-    border: 2px solid ${theme.colors[color]};
-    padding: calc(${theme.boxModel[size]} * 1.5)
-      calc(${theme.boxModel[size]} * 2);
+    border: 1px solid ${theme.colors[color]};
+    padding: calc(${theme.boxModel[size]}) calc(${theme.boxModel[size]} * 2);
     font-size: calc(${theme.boxModel[size]} * 2);
     color: ${textColor(theme.colors[color])};
     width: ${full && 100}%;
     border-radius: ${theme.boxModel.m};
     outline: 0;
     cursor: pointer;
+    transition: 0.1s;
 
     &:hover {
       background: ${setColor(theme.colors[color]).darken[2]};
-      border: 2px solid ${setColor(theme.colors[color]).darken[2]};
+      border: 1px solid ${setColor(theme.colors[color]).darken[2]};
+    }
+  `}
+`;
+
+const plainButton = css<ButtonProps>`
+  ${({ theme, color = "primary" }) => css`
+    ${solidButton}
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors[color]};
+    border-color: transparent;
+
+    &:hover {
+      background: ${setColor(theme.colors[color]).brighten[8]};
+      border-color: ${setColor(theme.colors[color]).brighten[8]};
     }
   `}
 `;
@@ -36,6 +50,8 @@ const solidButton = css<ButtonProps>`
 export const ButtonEl = styled.button<ButtonProps>`
   ${({ variant }) => {
     switch (variant) {
+      case "plain":
+        return plainButton;
       default:
         return solidButton;
     }

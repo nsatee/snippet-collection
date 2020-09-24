@@ -6,7 +6,7 @@ import CreateModal from "./CreateModal";
 import Side from "./Side";
 
 const Main: React.FC = () => {
-  const [creatingSection, setCreatingSection] = React.useState(false);
+  const [creatingSection, setCreatingSection] = React.useState(true);
   return (
     <MainContainer direction="row">
       <Side handleOpen={() => setCreatingSection(true)} />

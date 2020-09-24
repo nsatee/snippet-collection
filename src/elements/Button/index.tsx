@@ -1,5 +1,6 @@
 import React, { forwardRef, HTMLAttributes, MutableRefObject } from "react";
 import { ButtonEl } from "./styled";
+import Text from "../Text";
 import { ButtonProps } from "./styled";
 
 const Button = forwardRef(
@@ -10,7 +11,11 @@ const Button = forwardRef(
       | MutableRefObject<HTMLButtonElement | null>
       | null
   ) => {
-    return <ButtonEl ref={ref} {...props} />;
+    return (
+      <ButtonEl ref={ref} {...props}>
+        <Text.h4>{props.children}</Text.h4>
+      </ButtonEl>
+    );
   }
 );
 

@@ -11,14 +11,14 @@ const CreateModal: React.FC<{ active: boolean; onClose: () => void }> = ({
   return (
     <Modal title="Create section" active={active} onClose={onClose}>
       <Field>
-        <Input autoFocus />
+        <Input autoFocus placeholder="Section title" />
       </Field>
       <ModalFooter>
-        <Flex justify="end" align="center" gap="m">
+        <Flex justify="end" align="center" gap="xs">
           <Button variant="plain" color="error" onClick={onClose}>
             Cancel
           </Button>
-          <Button size="s">Create</Button>
+          <Button>Create</Button>
         </Flex>
       </ModalFooter>
     </Modal>
