@@ -33,21 +33,21 @@ const Modal: React.FC<{
 };
 
 const Body = styled.div`
-  padding: ${({ theme }) => theme.spacing.l}px;
+  padding: ${({ theme }) => theme.boxModel.l}px;
 `;
 
 export const ModalFooter = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xl}px;
+  margin-top: ${({ theme }) => theme.boxModel.xl}px;
 `;
 
 const Title = styled.h2`
   ${({ theme }) => css`
     font-weight: bold;
-    font-size: ${theme.spacing.xl}px;
+    font-size: ${theme.boxModel.xl}px;
     letter-spacing: 0.02em;
-    margin-bottom: ${theme.spacing.xl}px;
-    padding: ${theme.spacing.l}px;
-    background: ${theme.colors.background.light};
+    margin-bottom: ${theme.boxModel.xl}px;
+    padding: ${theme.boxModel.l}px;
+    background: ${theme.colors.background};
   `}
 `;
 
@@ -62,7 +62,7 @@ const Container = styled.div<{ active?: boolean }>`
     place-items: center;
     opacity: 1;
     transition: 0.2s;
-    padding: ${theme.spacing.l}px;
+    padding: ${theme.boxModel.l}px;
 
     ${!active &&
     css`

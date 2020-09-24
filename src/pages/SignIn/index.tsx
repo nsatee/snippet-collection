@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Field, FieldRow, Input, Label } from "../../components/Form";
-import Grid, { MainContainer } from "../../components/Grid";
+import { Field, FieldRow, Input, Label } from "../../elements/Form";
+import Grid, { MainContainer } from "../../elements/Grid";
 
 const SignIn = () => {
   return (

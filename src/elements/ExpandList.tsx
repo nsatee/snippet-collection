@@ -19,7 +19,7 @@ const ExpandList = () => {
   return (
     <ExpandContainer>
       <Button
-        expanded
+        full
         onClick={() => {
           setShow(!show);
         }}
@@ -55,22 +55,22 @@ const ExpandList = () => {
 
 export const List = styled.div`
   border-bottom: 1px solid
-    ${({ theme }) => chroma(theme.colors.primary.base).alpha(0.3).css()};
-  padding: ${({ theme }) => theme.spacing.l}px;
-  color: ${({ theme }) => theme.colors.primary.base};
+    ${({ theme }) => chroma(theme.colors.primary).alpha(0.3).css()};
+  padding: ${({ theme }) => theme.boxModel.l}px;
+  color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
   transition: 0.1s;
 
   &:hover {
     background: ${({ theme }) =>
-      chroma(theme.colors.primary.base).alpha(0.05).css()};
+      chroma(theme.colors.primary).alpha(0.05).css()};
   }
 `;
 
 export const GroupList = styled(motion.div)<{ show: boolean }>`
   width: 100%;
   height: 0;
-  margin: ${({ theme }) => theme.spacing.s}px 0;
+  margin: ${({ theme }) => theme.boxModel.s}px 0;
   overflow: hidden;
 
   ${List}:last-child {
@@ -80,8 +80,8 @@ export const GroupList = styled(motion.div)<{ show: boolean }>`
 
 export const GroupListContent = styled.div`
   border: 1px solid
-    ${({ theme }) => chroma(theme.colors.primary.base).alpha(0.3).css()};
-  border-radius: ${({ theme }) => theme.spacing.s}px;
+    ${({ theme }) => chroma(theme.colors.primary).alpha(0.3).css()};
+  border-radius: ${({ theme }) => theme.boxModel.s}px;
 `;
 
 const ExpandContainer = styled.div`

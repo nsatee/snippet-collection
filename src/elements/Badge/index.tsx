@@ -13,14 +13,14 @@ const BadgeDisplay = styled.small`
     place-items: center;
     height: 18px;
     min-width: 18px;
-    background-color: ${theme.colors.error.dark};
-    color: ${theme.colors.background.base};
+    background-color: ${theme.colors.background};
+    color: ${theme.colors.background};
     border-radius: 99999px;
     font-size: 10px;
     position: absolute;
     top: -10px;
     right: -10px;
-    box-shadow: 0 0 10px ${rgba(theme.colors.error.dark, 0.7)};
+    box-shadow: 0 0 10px ${rgba(theme.colors.error, 0.7)};
     padding: 4px;
   `}
 `;

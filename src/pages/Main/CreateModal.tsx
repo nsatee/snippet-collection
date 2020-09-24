@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../../components/Button";
-import { Field, Input } from "../../components/Form";
-import { Flex } from "../../components/Grid";
-import Modal, { ModalFooter } from "../../components/Modal";
+import Button from "../../elements/Button";
+import { Field, Input } from "../../elements/Form";
+import { Flex } from "../../elements/Grid";
+import Modal, { ModalFooter } from "../../elements/Modal";
 
 const CreateModal: React.FC<{ active: boolean; onClose: () => void }> = ({
   active,
@@ -15,10 +15,10 @@ const CreateModal: React.FC<{ active: boolean; onClose: () => void }> = ({
       </Field>
       <ModalFooter>
         <Flex justify="end" align="center" gap="m">
-          <Button display="plain" color="error" onClick={onClose}>
+          <Button variant="plain" color="error" onClick={onClose}>
             Cancel
           </Button>
-          <Button dimension="s">Create</Button>
+          <Button size="s">Create</Button>
         </Flex>
       </ModalFooter>
     </Modal>

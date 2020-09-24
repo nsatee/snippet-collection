@@ -7,7 +7,8 @@ ${({ theme }) => css`
     -webkit-font-smoothing: antialiased;
   }
   body {
-    background: ${theme.colors.background.base};
+    background: ${theme.colors.background};
+    line-height: 1.5;
   }
 `}
 `;

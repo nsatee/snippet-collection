@@ -1,14 +1,15 @@
 import chroma from "chroma-js";
 import React from "react";
 import styled, { css } from "styled-components";
-import Button from "../../components/Button";
-import ExpandList from "../../components/ExpandList";
+import Button from "../../elements/Button";
+import ExpandList from "../../elements/ExpandList";
+import { setColor } from "../../elements/Theme";
 
 const Side: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
   return (
     <Container>
       <Button
-        expanded
+        full
         onClick={handleOpen}
         style={{ marginBottom: 36 }}
         color="success"
@@ -28,7 +29,9 @@ const Container = styled.aside`
     overflow-y: scroll;
     position: sticky;
     top: 0;
-    padding: ${theme.spacing.xxl}px;
+    padding: ${theme.boxModel.xxl};
+    background-color: ${theme.colors.base};
+    border-right: 1px solid ${setColor(theme.colors.base).darken[1]};
 
     &::-webkit-scrollbar {
       width: 5px;
@@ -41,13 +44,13 @@ const Container = styled.aside`
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: ${chroma(theme.colors.gray.dark).alpha(0.3).css()};
+      background: ${chroma(theme.colors.gray).alpha(0.3).css()};
       border-radius: 999px;
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: ${chroma(theme.colors.gray.dark).alpha(0.4).css()};
+      background: ${chroma(theme.colors.gray).alpha(0.4).css()};
     }
   `}
 `;

@@ -1,9 +1,20 @@
 {
   "cSpell.words": [
+    "desaturate",
     "signin"
   ],
   "sync.autoDownload": true,
   "sync.autoUpload": true,
   "sync.forceDownload": true,
-  "sync.forceUpload": true
+  "sync.forceUpload": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "node_modules": true
+  },
+  "explorerExclude.backup": null
 }
