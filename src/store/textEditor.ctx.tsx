@@ -1,5 +1,8 @@
+import React from "react";
 import { EditorState } from "draft-js";
 import { atom, selector } from "recoil";
+import { BiStrikethrough } from "react-icons/bi";
+import { FiBold, FiUnderline, FiItalic, FiCode } from "react-icons/fi";
 
 export const textEditorState = atom({
   key: "textEditorState",
@@ -10,18 +13,22 @@ export const actionTemplateState = atom({
   key: "actionTemplateState",
   default: {
     inlineList: {
-      BOLD: { label: "B", alt: "Bold" },
-      ITALIC: { label: "I", alt: "Italic" },
-      UNDERLINE: { label: "U", alt: "Underline" },
-      STRIKETHROUGH: { label: "-", alt: "Strike through" },
-      CODE: { label: "<>", alt: "Code" },
-    } as { [key: string]: { label: string; alt: string } },
+      BOLD: { label: <FiBold />, alt: "Bold" },
+      ITALIC: { label: <FiItalic />, alt: "Italic" },
+      UNDERLINE: { label: <FiUnderline />, alt: "Underline" },
+      STRIKETHROUGH: {
+        label: <BiStrikethrough />,
+        alt: "Strike through",
+      },
+      CODE: { label: <FiCode />, alt: "Code" },
+    } as { [key: string]: { label: JSX.Element; alt: string } },
     blockList: {
-      "header-one": { label: "h1", alt: "Bold" },
-      "header-two": { label: "h2", alt: "Italic" },
-      "header-three": { label: "h3", alt: "Italic" },
-      "header-four": { label: "h4", alt: "Italic" },
-      blockquote: { label: '"', alt: "Underline" },
+      unstyled: { label: "Unstyled", alt: "unstyled" },
+      "header-one": { label: "Header 1", alt: "H1" },
+      "header-two": { label: "Header 2", alt: "H2" },
+      "header-three": { label: "Header 3", alt: "H3" },
+      "header-four": { label: "Header 4", alt: "H4" },
+      blockquote: { label: "Block quote", alt: "Quote" },
     } as { [key: string]: { label: string; alt: string } },
   },
 });

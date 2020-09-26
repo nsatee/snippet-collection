@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { setColor } from "../Theme";
 import { ColorType } from "../Theme/colors";
 import { BoxModelType } from "../Theme/spacing";
+import { motion } from "framer-motion";
 
 type CardProps = {
   background?: ColorType | "none";
@@ -18,7 +19,7 @@ const GhostStyle = css`
   `}
 `;
 
-const Card = styled.div<CardProps>`
+const Card = styled(motion.div)<CardProps>`
   ${({
     theme,
     background = "base",

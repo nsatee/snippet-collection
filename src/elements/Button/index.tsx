@@ -13,10 +13,14 @@ const Button = forwardRef(
   ) => {
     return (
       <ButtonEl ref={ref} {...props}>
-        {props.size === "s" ? (
-          <Text.small>{props.children}</Text.small>
+        {typeof props.children === "string" ? (
+          props.size === "s" ? (
+            <Text.small>{props.children}</Text.small>
+          ) : (
+            <Text.h4>{props.children}</Text.h4>
+          )
         ) : (
-          <Text.h4>{props.children}</Text.h4>
+          props.children
         )}
       </ButtonEl>
     );

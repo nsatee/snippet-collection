@@ -12,14 +12,28 @@ export type ButtonProps = {
   active?: boolean;
   full?: boolean;
   square?: boolean;
+  noHovered?: boolean;
 };
 
 const solidButton = css<ButtonProps>`
-  ${({ theme, color = "primary", size = "m", full, active, square }) => css`
+  ${({
+    theme,
+    color = "primary",
+    size = "m",
+    full,
+    active,
+    square,
+    noHovered,
+  }) => css`
+    display: ${square ? "grid" : "auto"};
+    place-items: ${square && "center"};
     background-color: ${theme.colors[color]};
     border: 1px solid ${theme.colors[color]};
-    padding: ${!square &&
-    `calc(${theme.boxModel[size]}) calc(${theme.boxModel[size]} * 2)`};
+    padding: ${
+      !square
+        ? `calc(${theme.boxModel[size]}) calc(${theme.boxModel[size]} * 2)`
+        : 0
+    };
     font-size: calc(${theme.boxModel[size]} * 2);
     color: ${textColor(theme.colors[color])};
     width: ${full ? "100%" : square && "42px"};
@@ -28,17 +42,26 @@ const solidButton = css<ButtonProps>`
     outline: 0;
     cursor: pointer;
     transition: 0.1s;
-    ${active &&
-    css`
-       {
-        background-color: ${setColor(theme.colors[color]).darken[2]};
-        border: 1px solid ${setColor(theme.colors[color]).darken[2]};
-      }
-    `}
+    display: ${square && "grid"},
+    place-items: ${square && "center"},
+    ${
+      active &&
+      css`
+         {
+          background-color: ${setColor(theme.colors[color]).darken[2]};
+          border: 1px solid ${setColor(theme.colors[color]).darken[2]};
+        }
+      `
+    }
 
     &:hover {
-      background-color: ${setColor(theme.colors[color]).darken[2]};
-      border: 1px solid ${setColor(theme.colors[color]).darken[2]};
+      ${
+        !noHovered &&
+        css`
+          background-color: ${setColor(theme.colors[color]).darken[2]};
+          border: 1px solid ${setColor(theme.colors[color]).darken[2]};
+        `
+      }
     }
   `}
 `;

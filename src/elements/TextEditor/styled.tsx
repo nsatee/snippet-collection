@@ -20,5 +20,10 @@ export const EditorContainer = styled(Card)`
       pointer-events: none;
       opacity: 0.4;
     }
+
+    blockquote {
+      padding-left: ${theme.boxModel.m};
+      border-left: 4px solid ${theme.colors.primary};
+    }
   `}
 `;

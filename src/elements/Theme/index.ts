@@ -1,10 +1,12 @@
 import { colors } from "./colors";
 import chroma from "chroma-js";
 import { boxModel } from "./spacing";
+import { shadows } from "./shadow";
 
 export const theme = {
   colors,
   boxModel,
+  shadows,
 } as const;
 
 type Theme = typeof theme;
