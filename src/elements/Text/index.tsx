@@ -4,19 +4,27 @@ import { ColorType } from "../Theme/colors";
 type TextProps = {
   color?: ColorType;
   bold?: boolean;
+  align?: "center" | "left" | "right";
 };
 
-const Header = css<TextProps>`
-  ${({ theme, color, bold = true }) => css`
+const CommonText = css<TextProps>`
+  ${({ theme, color, align }) => css`
     color: ${color ? theme.colors[color] : "inherit"};
+    text-align: ${align && align};
+  `}
+`;
+
+const Header = css<TextProps>`
+  ${({ bold = true }) => css`
+    ${CommonText}
     font-weight: ${bold && "bold"};
   `}
 `;
 
 const Content = css<TextProps>`
   ${({ bold = false }) => css`
-    ${Header}
-    font-weight: ${bold && "bold"};
+    ${CommonText}
+    font-weight: ${bold ? "bold" : "normal"};
   `}
 `;
 

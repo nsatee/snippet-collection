@@ -36,8 +36,8 @@ const Grid = styled.div<GridProps>`
   ${({ gap, col, row, center, fullH, fullW }) => css`
     display: grid;
     grid-gap: ${gap && gapSet[gap]}px;
-    grid-template-columns: repeat(${col && col}, 1fr);
-    grid-template-row: repeat(${row && row}, 1fr);
+    grid-template-columns: ${col && `repeat(${col}, 1fr)`};
+    grid-template-row: ${row && `repeat(${row}, 1fr)`};
     place-items: ${center && "center"};
     width: ${fullW && "100vw"};
     height: ${fullH && "100vh"};
@@ -54,13 +54,16 @@ type FlexProps = {
   justify?: keyof typeof styleVal;
   align?: keyof typeof styleVal;
   gap?: keyof typeof gapSet;
+  center?: boolean;
 };
 
 export const Flex = styled.div<FlexProps>`
-  ${({ justify, align, gap }) => css`
+  ${({ justify, align, gap, center }) => css`
     display: flex;
     justify-content: ${justify && styleVal[justify]};
+    justify-content: ${center && styleVal.center};
     align-items: ${align && styleVal[align]};
+    align-items: ${center && styleVal.center};
 
     > * {
       margin: 0 ${gap && gapSet[gap]}px;

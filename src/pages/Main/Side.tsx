@@ -24,6 +24,7 @@ const Side: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
 const Container = styled.aside`
   ${({ theme }) => css`
     min-width: 300px;
+    max-width: 400px;
     width: 30vw;
     height: 100vh;
     overflow-y: scroll;
