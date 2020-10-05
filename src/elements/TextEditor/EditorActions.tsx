@@ -6,7 +6,7 @@ import {
   inlineStyleState,
 } from "../../store/textEditor.ctx";
 import Button from "../Button";
-import Dropdown from "../Dropdown";
+import Dropdown, { List } from "../Dropdown";
 import Grid, { Flex } from "../Grid";
 import { useBlockStyle } from "./blockFunction";
 import { useInlineStyle } from "./inlineStyleFunction";
@@ -39,8 +39,14 @@ const EditorActions = () => {
             label: template.blockList[option].label,
           }))}
           onChange={(option) => toggleBlock(option?.value!)}
-          chosen={{ value: "unstyled", label: "Unstyled" }}
-        />
+          active={{ value: "unstyled", label: "Unstyled" }}
+        >
+          {({ data, initProps, active }) => (
+            <List full active={active} color="base" {...initProps}>
+              {data.label}
+            </List>
+          )}
+        </Dropdown>
       </Grid>
     </React.Fragment>
   );

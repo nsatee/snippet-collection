@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import Button from "../Button";
@@ -14,9 +21,10 @@ const ListContainer = styled(Card)`
   box-shadow: ${({ theme }) => theme.shadows.smooth};
   overflow-y: scroll;
   max-height: 300px;
+  padding: 4px;
 `;
 
-const List = styled(Button)`
+export const List = styled(Button)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,56 +64,122 @@ const DropdownList: FC<{ pos?: DOMRect; open: boolean }> = ({
     : null;
 };
 
-const DDIcon = styled.div<{ active?: boolean }>`
+const DDIcon = styled.div<{ open?: boolean }>`
   transition: 0.2s;
-  margin-bottom: ${({ active }) => (active ? "4px" : "-4px")};
-  transform: ${({ active }) => (active ? "rotate(-180deg)" : "rotate(0deg)")};
+  margin-bottom: ${({ open }) => (open ? "4px" : "-4px")};
+  transform: ${({ open }) => (open ? "rotate(-180deg)" : "rotate(0deg)")};
   transform-origin: center;
 `;
+type OptionType = { label?: string; value: string };
+type ChildrenProps = {
+  active: boolean;
+  data: OptionType;
+  initProps: {
+    onClick: () => void;
+    key: string;
+  };
+};
 
 const Dropdown: FC<{
   options: { label?: string; value: string }[];
   onChange: (args?: { label?: string; value: string }) => void;
-  chosen: { label?: string; value: string };
-}> = ({ options, onChange, chosen }) => {
+  active: { label?: string; value: string };
+  children: (args: ChildrenProps) => React.ReactNode;
+}> = ({ options, onChange, active, children }) => {
   const inputRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
+  const [open, setOpen] = useState(false);
   const [inputPos, setInputPos] = useState<DOMRect>();
-  const [selected, setSelected] = useState<{ label?: string; value: string }>(
-    chosen
+  const [selected, setSelected] = useState<OptionType>(active);
+  const valueIndex = useMemo(() => options.map((option) => option.value), [
+    options,
+  ]);
+  const [activeIndex, setActiveIndex] = useState<number>(
+    valueIndex.indexOf(active.value)
   );
   useOutsideClick(containerRef, {
-    onClickOutside: () => setActive(false),
+    onClickOutside: () => setOpen(false),
   });
   const inputRect = useResizeRect(inputRef);
 
   useEffect(() => {
     inputRef.current! && setInputPos(inputRef.current!.getBoundingClientRect());
   }, [inputRef]);
+
+  const keydownListener = useCallback(
+    (event: KeyboardEvent) => {
+      const key = event.key;
+      const optionsLength = valueIndex.length - 1;
+      if (key === "ArrowDown") {
+        return setActiveIndex((index) => {
+          if (index === optionsLength) {
+            return 0;
+          }
+          return index + 1;
+        });
+      }
+      if (key === "ArrowUp") {
+        return setActiveIndex((index) => {
+          if (index <= 0) {
+            return optionsLength;
+          }
+          return index - 1;
+        });
+      }
+      if (key === "Escape") {
+        return setOpen(false);
+      }
+    },
+    [valueIndex.length]
+  );
+
+  useEffect(() => {
+    setSelected(options[activeIndex]);
+  }, [activeIndex, options]);
+
+  const memoKeydown = useMemo(() => keydownListener, [keydownListener]);
+
+  useEffect(() => {
+    if (open) {
+      window.addEventListener("keydown", memoKeydown);
+    } else {
+      window.removeEventListener("keydown", memoKeydown);
+    }
+  }, [memoKeydown, open]);
+
   return (
     <div ref={containerRef}>
-      <List full color="base" ref={inputRef} onClick={() => setActive(!active)}>
+      <List
+        full
+        color="base"
+        noHovered
+        ref={inputRef}
+        onClick={() => setOpen(!open)}
+        onKeyDown={(event) =>
+          event.key === "Enter" && onChange(options[activeIndex])
+        }
+      >
         {selected.label}
-        <DDIcon active={active}>
+        <DDIcon open={open}>
           <FiChevronDown size={24} />
         </DDIcon>
       </List>
-      <DropdownList pos={inputRect?.rect || inputPos} open={active}>
-        {options.map((option) => (
-          <List
-            full
-            key={option.value}
-            color="base"
-            onClick={() => {
-              setActive(false);
-              setSelected(option);
-              onChange(option);
-            }}
-          >
-            {option.label || option.value}
-          </List>
-        ))}
+      <DropdownList pos={inputRect?.rect || inputPos} open={open}>
+        {options.map((option, index) =>
+          children({
+            active: selected.value === option.value,
+            data: option,
+            initProps: {
+              onClick: () => {
+                setOpen(false);
+                setSelected(option);
+                setActiveIndex(index);
+                onChange(option);
+              },
+              key: option.value,
+            },
+          })
+        )}
       </DropdownList>
     </div>
   );
