@@ -6,7 +6,7 @@ import Text from "../../elements/Text";
 import Card from "../../elements/Card";
 
 import { ReactComponent as NewDocHero } from "../../assets/newDoc.svg";
-import ContentEditor from "./ContentEditor";
+import TextEditor from "../../elements/TextEditor";
 
 const EmptyDesc: FC = () => {
   return (
@@ -26,7 +26,7 @@ const MainContent: FC = () => {
   const [isEmpty] = useState(false);
   return (
     <Content>
-      <Grid gap="xl">
+      <Flex direction="column" style={{ height: "100%" }} gap="s">
         <Flex align="center" gap="s">
           <Text.h1>JavaScript</Text.h1>
           <Button size="s" variant="ghost">
@@ -34,8 +34,8 @@ const MainContent: FC = () => {
           </Button>
         </Flex>
         {isEmpty && <EmptyDesc />}
-        <ContentEditor />
-      </Grid>
+        <TextEditor />
+      </Flex>
     </Content>
   );
 };

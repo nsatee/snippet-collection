@@ -1,30 +1,68 @@
 import styled, { css } from "styled-components";
 import { ColorType } from "../Theme/colors";
 
+export type TextAlignType = "center" | "left" | "right";
+
 type TextProps = {
   color?: ColorType;
   bold?: boolean;
-  align?: "center" | "left" | "right";
+  strike?: boolean;
+  underline?: boolean;
+  italic?: boolean;
+  code?: boolean;
+  align?: TextAlignType;
 };
 
 const CommonText = css<TextProps>`
-  ${({ theme, color, align }) => css`
+  ${({ theme, color, align, italic, strike, underline, code }) => css`
+    position: relative;
     color: ${color ? theme.colors[color] : "inherit"};
     text-align: ${align && align};
+    font-style: ${italic && "italic"};
+    box-shadow: ${code && "0 0 0 1px rgba(0, 0, 0, .2)"};
+    font-family: ${code && "monospace"};
+    border-radius: ${code && "4px"};
+    padding: ${code && "0px 8px"};
+
+    &:before {
+      content: ${strike && '""'};
+      position: absolute;
+      display: block;
+      height: 2px;
+      width: 100%;
+      top: 50%;
+      left: 0;
+      background: ${theme.colors.error};
+    }
+
+    &:after {
+      content: ${underline && '""'};
+      position: absolute;
+      display: block;
+      height: 2px;
+      width: 100%;
+      bottom: 0.1rem;
+      left: 0;
+      background: ${theme.colors.primary};
+    }
   `}
 `;
 
 const Header = css<TextProps>`
   ${({ bold = true }) => css`
     ${CommonText}
-    font-weight: ${bold && "bold"};
+    font-weight: ${bold && "bold"} !important;
+
+    [placeholder] {
+      font-weight: ${bold && "bold"} !important;
+    }
   `}
 `;
 
 const Content = css<TextProps>`
   ${({ bold = false }) => css`
     ${CommonText}
-    font-weight: ${bold ? "bold" : "normal"};
+    font-weight: ${bold ? "bold !important" : "normal"};
   `}
 `;
 

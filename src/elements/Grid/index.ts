@@ -55,24 +55,32 @@ type FlexProps = {
   align?: keyof typeof styleVal;
   gap?: keyof typeof gapSet;
   center?: boolean;
+  direction?: "column" | "row";
+  flex?: string;
 };
 
 export const Flex = styled.div<FlexProps>`
-  ${({ justify, align, gap, center }) => css`
+  ${({ justify, align, gap, center, direction, flex }) => css`
     display: flex;
     justify-content: ${justify && styleVal[justify]};
     justify-content: ${center && styleVal.center};
     align-items: ${align && styleVal[align]};
     align-items: ${center && styleVal.center};
+    flex-direction: ${direction && "column"};
+    flex: ${flex && flex};
 
     > * {
-      margin: 0 ${gap && gapSet[gap]}px;
+      margin: ${gap && direction !== "column"
+        ? `0 ${gapSet[gap]}px`
+        : gap && `${gapSet[gap]}px 0`};
 
       &:first-child {
         margin-left: 0;
+        margin-top: 0;
       }
       &:last-child {
         margin-right: 0;
+        margin-bottom: 0;
       }
     }
   `}
