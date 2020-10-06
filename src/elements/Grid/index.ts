@@ -44,28 +44,32 @@ const Grid = styled.div<GridProps>`
   `}
 `;
 
-const styleVal = {
-  center: "center",
-  start: "flex-start",
-  end: "flex-end",
-};
+enum STYLE_VALUE {
+  center = "center",
+  start = "flex-start",
+  end = "flex-end",
+  around = "space-around",
+  between = "space-between",
+}
 
 type FlexProps = {
-  justify?: keyof typeof styleVal;
-  align?: keyof typeof styleVal;
+  justify?: keyof typeof STYLE_VALUE;
+  align?: keyof typeof STYLE_VALUE;
   gap?: keyof typeof gapSet;
   center?: boolean;
   direction?: "column" | "row";
   flex?: string;
+  wrap?: boolean;
 };
 
 export const Flex = styled.div<FlexProps>`
-  ${({ justify, align, gap, center, direction, flex }) => css`
+  ${({ justify, align, gap, center, direction, flex, wrap }) => css`
     display: flex;
-    justify-content: ${justify && styleVal[justify]};
-    justify-content: ${center && styleVal.center};
-    align-items: ${align && styleVal[align]};
-    align-items: ${center && styleVal.center};
+    flex-wrap: ${wrap && "wrap"};
+    justify-content: ${justify && STYLE_VALUE[justify]};
+    justify-content: ${center && STYLE_VALUE.center};
+    align-items: ${align && STYLE_VALUE[align]};
+    align-items: ${center && STYLE_VALUE.center};
     flex-direction: ${direction && "column"};
     flex: ${flex && flex};
 

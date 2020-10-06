@@ -1,6 +1,6 @@
 import React from "react";
 import { useSlate } from "slate-react";
-import Button from "../Button";
+import Button, { GroupButton } from "../Button";
 import { Flex } from "../Grid";
 import { useEditorLocal } from "./editorState";
 import {
@@ -96,22 +96,24 @@ const ActionComponent = () => {
   ];
 
   return (
-    <Flex gap="l">
+    <Flex wrap justify="end">
       {cmdObjectRender.map((list, index) => {
         return (
-          <Flex gap="s" key={index}>
-            {list.map((btn) => (
-              <Button
-                active={btn.active}
-                key={btn.alt}
-                square
-                variant="bordered"
-                onClick={() => btn.cmd()}
-              >
-                {btn.label}
-              </Button>
-            ))}
-          </Flex>
+          <GroupButton style={{ margin: 4 }}>
+            <Flex key={index}>
+              {list.map((btn) => (
+                <Button
+                  active={btn.active}
+                  key={btn.alt}
+                  square
+                  variant="bordered"
+                  onClick={() => btn.cmd()}
+                >
+                  {btn.label}
+                </Button>
+              ))}
+            </Flex>
+          </GroupButton>
         );
       })}
     </Flex>

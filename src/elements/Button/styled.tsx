@@ -78,11 +78,13 @@ const plainButton = css<ButtonProps>`
 
     ${active &&
     css`
+      color: ${textColor(theme.colors[color])};
       background: ${setColor(theme.colors[color]).brighten[8]};
       border-color: ${setColor(theme.colors[color]).brighten[8]};
     `}
 
     &:hover {
+      color: ${textColor(theme.colors[color])};
       background: ${setColor(theme.colors[color]).brighten[8]};
       border-color: ${setColor(theme.colors[color]).brighten[8]};
     }

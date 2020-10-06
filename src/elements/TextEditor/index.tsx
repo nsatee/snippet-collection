@@ -60,7 +60,12 @@ const EditorContainer: FC<{}> = () => {
       placeholder="Content goes here"
       renderElement={renderElement}
       renderLeaf={renderLeaf}
-      style={{ flex: 1, width: "100%" }}
+      style={{
+        minHeight: 150,
+        border: "1px solid rgba(0, 0, 0, 0.2)",
+        padding: 12,
+        borderRadius: 12,
+      }}
       onKeyDown={(event) => {
         if (isHotkey("tab", event.nativeEvent)) {
           event.preventDefault();

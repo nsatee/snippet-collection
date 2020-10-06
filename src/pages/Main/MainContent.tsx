@@ -7,6 +7,7 @@ import Card from "../../elements/Card";
 
 import { ReactComponent as NewDocHero } from "../../assets/newDoc.svg";
 import TextEditor from "../../elements/TextEditor";
+import TopicSection from "./TopicSection";
 
 const EmptyDesc: FC = () => {
   return (
@@ -35,6 +36,11 @@ const MainContent: FC = () => {
         </Flex>
         {isEmpty && <EmptyDesc />}
         <TextEditor />
+        <Flex gap="s" justify="end">
+          <Button>Cancel</Button>
+          <Button color="success">Save</Button>
+        </Flex>
+        <TopicSection />
       </Flex>
     </Content>
   );
@@ -42,6 +48,10 @@ const MainContent: FC = () => {
 
 export const Content = styled.main`
   ${({ theme }) => css`
+    height: 100vh;
+    overflow-x: scroll;
+    display: block;
+    position: relative;
     flex: 1;
     background-color: ${theme.colors.background};
     padding: ${theme.boxModel.xl};

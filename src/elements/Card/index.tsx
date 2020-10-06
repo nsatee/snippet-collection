@@ -32,7 +32,9 @@ const Card = styled(motion.div)<CardProps>`
     border-radius: ${theme.boxModel.s};
     background-color: ${!type &&
     (background === "none" ? "transparent" : theme.colors[background])};
-    padding: ${padding !== "none" || padding ? "unset" : theme.boxModel.xl};
+    padding: ${padding !== "none" || padding
+      ? "unset"
+      : theme.boxModel[padding]};
     width: ${width};
     height: ${height};
     ${type === "ghost" && GhostStyle}

@@ -31,7 +31,9 @@
     "slate-history": "^0.59.0",
     "slate-react": "^0.59.0",
     "styled-components": "^5.2.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "unstated-next": "^1.1.0",
+    "wouter": "^2.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
