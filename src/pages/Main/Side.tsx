@@ -2,10 +2,23 @@ import chroma from "chroma-js";
 import React from "react";
 import styled, { css } from "styled-components";
 import Button from "../../elements/Button";
-import ExpandList from "../../elements/ExpandList";
 import { setColor } from "../../elements/Theme";
+import Grid from "../../elements/Grid";
+import { useQuery, gql } from "@apollo/client";
+
+export const GET_STORIES = gql`
+  query GetStories {
+    GetStories {
+      _id
+      description
+      title
+    }
+  }
+`;
 
 const Side: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
+  const { loading, error, data } = useQuery(GET_STORIES);
+  if (error) return <h1>It's error</h1>;
   return (
     <Container>
       <Button
@@ -16,7 +29,25 @@ const Side: React.FC<{ handleOpen: () => void }> = ({ handleOpen }) => {
       >
         Create collection
       </Button>
-      <ExpandList />
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <Grid gap="s">
+          {data.GetStories.map(
+            (data: {
+              _id: string;
+              description: string | null;
+              title: string;
+            }) => {
+              return (
+                <Button full key={data._id}>
+                  {data.title}
+                </Button>
+              );
+            }
+          )}
+        </Grid>
+      )}
     </Container>
   );
 };
@@ -45,13 +76,17 @@ const Container = styled.aside`
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-      background: ${chroma(theme.colors.gray).alpha(0.3).css()};
+      background: ${chroma(theme.colors.gray)
+        .alpha(0.3)
+        .css()};
       border-radius: 999px;
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: ${chroma(theme.colors.gray).alpha(0.4).css()};
+      background: ${chroma(theme.colors.gray)
+        .alpha(0.4)
+        .css()};
     }
   `}
 `;

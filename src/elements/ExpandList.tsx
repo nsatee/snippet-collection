@@ -55,7 +55,10 @@ const ExpandList = () => {
 
 export const List = styled.div`
   border-bottom: 1px solid
-    ${({ theme }) => chroma(theme.colors.primary).alpha(0.3).css()};
+    ${({ theme }) =>
+      chroma(theme.colors.primary)
+        .alpha(0.3)
+        .css()};
   padding: ${({ theme }) => theme.boxModel.l}px;
   color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
@@ -63,7 +66,9 @@ export const List = styled.div`
 
   &:hover {
     background: ${({ theme }) =>
-      chroma(theme.colors.primary).alpha(0.05).css()};
+      chroma(theme.colors.primary)
+        .alpha(0.05)
+        .css()};
   }
 `;
 
@@ -80,7 +85,10 @@ export const GroupList = styled(motion.div)<{ show: boolean }>`
 
 export const GroupListContent = styled.div`
   border: 1px solid
-    ${({ theme }) => chroma(theme.colors.primary).alpha(0.3).css()};
+    ${({ theme }) =>
+      chroma(theme.colors.primary)
+        .alpha(0.3)
+        .css()};
   border-radius: ${({ theme }) => theme.boxModel.s}px;
 `;
 

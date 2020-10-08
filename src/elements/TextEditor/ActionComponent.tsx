@@ -96,10 +96,10 @@ const ActionComponent = () => {
   ];
 
   return (
-    <Flex wrap justify="end">
+    <Flex wrapping justify="end">
       {cmdObjectRender.map((list, index) => {
         return (
-          <GroupButton style={{ margin: 4 }}>
+          <GroupButton style={{ margin: 4 }} key={index}>
             <Flex key={index}>
               {list.map((btn) => (
                 <Button

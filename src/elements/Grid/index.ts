@@ -59,13 +59,13 @@ type FlexProps = {
   center?: boolean;
   direction?: "column" | "row";
   flex?: string;
-  wrap?: boolean;
+  wrapping?: boolean;
 };
 
 export const Flex = styled.div<FlexProps>`
-  ${({ justify, align, gap, center, direction, flex, wrap }) => css`
+  ${({ justify, align, gap, center, direction, flex, wrapping }) => css`
     display: flex;
-    flex-wrap: ${wrap && "wrap"};
+    flex-wrap: ${wrapping && "wrap"};
     justify-content: ${justify && STYLE_VALUE[justify]};
     justify-content: ${center && STYLE_VALUE.center};
     align-items: ${align && STYLE_VALUE[align]};
