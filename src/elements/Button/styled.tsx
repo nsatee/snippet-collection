@@ -24,6 +24,7 @@ const solidButton = css<ButtonProps>`
     active,
     square,
     noHovered,
+    disabled,
   }) => css`
     display: ${square ? "grid" : "auto"};
     place-items: ${square && "center"};
@@ -41,10 +42,12 @@ const solidButton = css<ButtonProps>`
     height: ${square && "42px"};
     border-radius: ${theme.boxModel.m};
     outline: 0;
-    cursor: pointer;
+    cursor: ${!disabled && "pointer"};
+    pointer-events: ${disabled && "none"};
     transition: 0.1s;
     display: ${square && "grid"};
     place-items: ${square && "center"};
+    opacity: ${disabled && "0.4"};
 
     &:hover {
       ${!noHovered &&

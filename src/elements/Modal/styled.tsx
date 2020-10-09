@@ -30,6 +30,7 @@ export const Container = styled.div<{ active?: boolean }>`
     opacity: 1;
     transition: 0.2s;
     padding: ${theme.boxModel.l}px;
+    z-index: 9999;
 
     ${!active &&
     css`

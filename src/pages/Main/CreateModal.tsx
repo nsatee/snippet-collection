@@ -29,7 +29,7 @@ const CreateModal: React.FC<{ active: boolean; onClose: () => void }> = ({
       cache.writeQuery({
         query: GET_STORIES,
         data: {
-          GetStories: state?.GetStories.concat(res),
+          getStories: state?.getStories.concat(res),
         },
       });
     },

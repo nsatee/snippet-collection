@@ -1,47 +1,48 @@
-import React, { FC, useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
-import Button from "../../elements/Button";
-import Grid, { Flex } from "../../elements/Grid";
-import Text from "../../elements/Text";
-import Card from "../../elements/Card";
-
-import { ReactComponent as NewDocHero } from "../../assets/newDoc.svg";
-import TextEditor from "../../elements/TextEditor";
+import { Flex } from "../../elements/Grid";
 import TopicSection from "./TopicSection";
+import { useRoute } from "wouter";
+import { useQuery } from "@apollo/client";
+import { useMainUI } from "../../UIController/MainController";
+import { getStory } from "../../graphql/story";
+import DescInput from "./DescInput";
+import MainPlaceholder from "./MainPlaceholder";
+import MainDesc from "./MainDesc";
+import EmptyDesc from "./EmptyDesc";
 
-const EmptyDesc: FC = () => {
-  return (
-    <Grid gap="l" center>
-      <Card background="none" width="300">
-        <NewDocHero width="100%" height="300" />
-      </Card>
-      <Text.p align="center">
-        You can add some description, so it's more clear what this section is
-        all about
-      </Text.p>
-      <Button>Create description</Button>
-    </Grid>
-  );
-};
-const MainContent: FC = () => {
-  const [isEmpty] = useState(false);
+const MainContent: React.FC = () => {
+  const [match, params] = useRoute("/:section");
+  const [, setUI] = useMainUI();
+  const { data, loading } = useQuery(getStory, {
+    variables: {
+      id: params?.section || "",
+    },
+  });
+
+  React.useLayoutEffect(() => {
+    !loading &&
+      setUI({
+        descData: data?.getStory.description,
+        isEmpty: data?.getStory.description === null,
+        data: data?.getStory,
+      });
+  }, [data, loading, setUI]);
+
   return (
     <Content>
-      <Flex direction="column" style={{ height: "100%" }} gap="s">
-        <Flex align="center" gap="s">
-          <Text.h1>JavaScript</Text.h1>
-          <Button size="s" variant="ghost">
-            Edit
-          </Button>
+      {loading ? (
+        <p>Loading...</p>
+      ) : match ? (
+        <Flex direction="column" style={{ height: "100%" }} gap="s">
+          <MainDesc />
+          <EmptyDesc />
+          <DescInput />
+          <TopicSection />
         </Flex>
-        {isEmpty && <EmptyDesc />}
-        <TextEditor />
-        <Flex gap="s" justify="end">
-          <Button>Cancel</Button>
-          <Button color="success">Save</Button>
-        </Flex>
-        <TopicSection />
-      </Flex>
+      ) : (
+        <MainPlaceholder />
+      )}
     </Content>
   );
 };
